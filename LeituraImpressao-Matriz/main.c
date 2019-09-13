@@ -27,10 +27,9 @@ int main(){
     //float matriz[ordemMat][ordemMat];         // Não usar desta maneira pois pode invadir uma área indesejada da memória
 
     // Alocação Dinâmica de Memória para Matriz de qualquer ordem =========================
-    int i;
-    float **matriz = (int**)malloc(ordemMat * sizeof(float*));
-    for (i=0; i<(ordemMat); i++){
-        matriz[i]=(int*)malloc(ordemMat * sizeof(float));
+    float **matriz = (float**)malloc(ordemMat * sizeof(float*));
+    for (int i=0; i<(ordemMat); i++){
+        matriz[i]=(float*)malloc(ordemMat * sizeof(float));
     }
 
     cabecalho();
