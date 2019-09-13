@@ -1,14 +1,11 @@
-// Resolução de Sistemas Lineares pelo Método de Gauss
+// Leitura e Impressão de Matriz quadrada de qualquer ordem
 // Arthur Castro
 // Setembro de 2019
 
 #include <stdio.h>
+#include <stdlib.h>
 
-int ordemMat = 0;
-// //float matriz[3][3] = {  {1, 2, 3},
-//                         {4, 5, 6},
-//                         {7, 8, 9}   };
-//float matriz[3][3] = {1, 2, 3, 4, 5, 6, 7, 8, 9} // Também funciona
+int ordemMat;
 
 void apresentacao();
 void cabecalho();
@@ -27,7 +24,14 @@ int main(){
     printf("\n\t");
     system("pause");
     
-    float matriz[ordemMat][ordemMat];
+    //float matriz[ordemMat][ordemMat];         // Não usar desta maneira pois pode invadir uma área indesejada da memória
+
+    // Alocação Dinâmica de Memória para Matriz de qualquer ordem =========================
+    int i;
+    float **matriz = (int**)malloc(ordemMat * sizeof(float*));
+    for (i=0; i<(ordemMat); i++){
+        matriz[i]=(int*)malloc(ordemMat * sizeof(float));
+    }
 
     cabecalho();
     matrizDemo();
