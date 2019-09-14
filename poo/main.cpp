@@ -2,15 +2,15 @@
 // Arthur Castro
 // Setembro de 2019
 
-#include <stdio.h>
-// #include <stdlib.h>
+#include <iostream>
+using namespace std;
+
 #include "Matrizes/Matrizes.h"
 
 // Definição de variáveis globais ==============================================================
 unsigned int linhas, colunas;
 
 // Definição de objetos ========================================================================
-Matrizes minhaMatriz();
 
 // Declaração de protótipos das funções ========================================================
 void apresentacao();
@@ -25,8 +25,8 @@ int main(){
     scanf("%i", &linhas);
     printf("\t>> Insira a quantidade de colunas da matriz: ");
     scanf("%i", &colunas);
-    
-    minhaMatriz.defMatriz(linhas, colunas);
+
+    Matrizes minhaMatriz(linhas, colunas);
 
     return 0;
 }

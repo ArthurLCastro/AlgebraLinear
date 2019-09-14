@@ -82,7 +82,7 @@ float **alocacaoDinamica(){
     return matriz;
 }
 
-// Insrir dados da Matriz =====================================================================
+// Inserir dados da Matriz =====================================================================
 void leitura(){
     unsigned int linha, coluna;
 

@@ -1,12 +1,11 @@
 #pragma once
 
-// #include <stdio.h>
 #include <iostream>
 using namespace std;
 
 class Matrizes{
 	private:
-		float **matriz = NULL;
+		// float **matriz = NULL;
  
  	public:
 		Matrizes();
