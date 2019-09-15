@@ -7,20 +7,30 @@ class Matrizes{
         float** mat = NULL;
         unsigned int numLinhas = 0, numColunas = 0;
         unsigned int ordemMatQuad = 0;
+        // void diminuirMatriz(unsigned int, unsigned int);
+        float calcCofator(unsigned int, unsigned int);
  
  	public:
         Matrizes();
+        Matrizes(unsigned int ordem);
 		Matrizes(unsigned int, unsigned int);
         void dimensoes(unsigned int, unsigned int);
+        unsigned int getQtdLinhas();
+        unsigned int getQtdColunas();
         bool quadrada();
         void setMatriz();
         float detLaplace();
         void imprime();
         void imprimeFormatada();
+        void diminuirMatriz(unsigned int, unsigned int);
 };
 
 //===================================== MÉTODOS =====================================
 Matrizes::Matrizes(){
+}
+
+Matrizes::Matrizes(unsigned int ordem){
+    dimensoes(ordem, ordem);
 }
 
 Matrizes::Matrizes(unsigned int linhas, unsigned int colunas){
@@ -42,6 +52,14 @@ void Matrizes::dimensoes(unsigned int qtdLinhas, unsigned int qtdColunas){
     }
     // Torna uma matriz global
     mat = matriz;
+}
+
+unsigned int Matrizes::getQtdLinhas(){
+    return numLinhas;
+}
+
+unsigned int Matrizes::getQtdColunas(){
+    return numColunas;
 }
 
 bool Matrizes::quadrada(){
@@ -66,13 +84,54 @@ float Matrizes::detLaplace(){
     float detM = 0;
     unsigned int linhaFixa = 0;     // Verificar o tipo da "variável", mudar para constante
     unsigned int coluna;
- 
-    for(coluna=1; coluna<=ordemMatQuad; coluna++){
-        coluna = coluna -1;
-       detM += (mat[linhaFixa][coluna]) * ((-1)^(linhaFixa + coluna)) * detLaplaceMatMenor();
+
+    if(this->getQtdLinhas() == 1){          // Se a ordem da Matriz for 1, o determinante é o próprio valor do elemento que a compõe
+        detM = mat[0][0];
+    } else {
+        // cout << "[DEBUG] Matriz de ordem maior que 1";
+        for(coluna=1; coluna<=ordemMatQuad; coluna++){
+            coluna--;
+            detM += (mat[linhaFixa][coluna]) * calcCofator(linhaFixa, coluna);
+        }
     }
 
     return detM;
+}
+
+float Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Verificar se o tipo float é adequado
+    unsigned int ordemMatAux = ordemMatQuad - 1;
+    Matrizes matrizAuxiliar(ordemMatAux);
+
+    matrizAuxiliar.diminuirMatriz(linha, coluna);
+    return (((-1)^(linha + coluna)) * matrizAuxiliar.detLaplace());
+}
+
+void Matrizes::diminuirMatriz(unsigned int linhaDel, unsigned int colunaDel){         // Inserir dados da Matriz Automaticamente
+    // Copia os valores da linha abaixo da linhaDel para uma linha acima
+    for (int count=0; count<ordemMatQuad; count++){
+        for(int aux=0; aux<(ordemMatQuad-linhaDel); aux++){
+            mat[linhaDel+aux][count] = mat[linhaDel+(aux+1)][count];
+        }
+    }
+    // Insere NULL à última linha da matriz maior
+    for (int inc=0; inc<ordemMatQuad; inc++){
+        mat[ordemMatQuad][inc] = NULL; 
+    }
+
+    // Copia os valores da coluna a direita da colunaDel para uma coluna a esquerda
+    for (int count=0; count<ordemMatQuad; count++){
+        for(int aux=0; aux<(ordemMatQuad-colunaDel); aux++){
+            mat[count][colunaDel+aux] = mat[count][colunaDel+(aux+1)];
+        }
+    }
+    // Insere NULL à última coluna da matriz maior
+    for (int inc=0; inc<ordemMatQuad; inc++){
+        mat[inc][ordemMatQuad] = NULL; 
+    }
+
+    // numLinhas--;
+    // numColunas--;  
+    // ordemMatQuad--;
 }
 
 void Matrizes::imprime(){
@@ -129,12 +188,27 @@ int main() {
         cout << "\n";
         minhaMatriz.setMatriz();
     
-        // Calcula e imprime o determinante e a matriz
+        // // Calcula e imprime o determinante e a matriz
+        // cabecalho();
+        // cout << "\n";
+        // minhaMatriz.imprimeFormatada();
+        // cout << "\n\t\xAF A matriz possui determinante\n\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
+        // system("pause");
+
+        // TESTE DIMINUIR MATRIZ
         cabecalho();
         cout << "\n";
         minhaMatriz.imprimeFormatada();
-        cout << "\n\t\xAF A matriz possui determinante\n\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
+
+        unsigned int linhaDelete, colunaDelete;
+        cout << "\t\xAF Linha a ser deletada: ";
+        cin >> linhaDelete;
+        cout << "\t\xAF Coluna a ser deletada: ";
+        cin >> colunaDelete;
+        minhaMatriz.diminuirMatriz(linhaDelete, colunaDelete);
+        minhaMatriz.imprimeFormatada();
         system("pause");
+        
 
     } else {
         // Imprime mensagem de erro
