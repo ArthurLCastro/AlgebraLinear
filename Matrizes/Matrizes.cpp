@@ -5,8 +5,8 @@ using namespace std;
 class Matrizes{
 	private:
         float** mat = NULL;
-        unsigned int numLinhas = 0;
-        unsigned int numColunas = 0;
+        unsigned int numLinhas = 0, numColunas = 0;
+        unsigned int ordemMatQuad = 0;
  
  	public:
         Matrizes();
@@ -14,7 +14,7 @@ class Matrizes{
         void dimensoes(unsigned int, unsigned int);
         bool quadrada();
         void setMatriz();
-        float determinante();
+        float detLaplace();
         void imprime();
         void imprimeFormatada();
 };
@@ -46,6 +46,7 @@ void Matrizes::dimensoes(unsigned int qtdLinhas, unsigned int qtdColunas){
 
 bool Matrizes::quadrada(){
     if(numLinhas == numColunas){
+        ordemMatQuad = numLinhas;
         return true;
     } else {
         return false;
@@ -61,8 +62,17 @@ void Matrizes::setMatriz(){         // Inserir dados da Matriz
     }
 }
 
-float Matrizes::determinante(){
-    return 3;
+float Matrizes::detLaplace(){
+    float detM = 0;
+    unsigned int linhaFixa = 0;     // Verificar o tipo da "variável", mudar para constante
+    unsigned int coluna;
+ 
+    for(coluna=1; coluna<=ordemMatQuad; coluna++){
+        coluna = coluna -1;
+       detM += (mat[linhaFixa][coluna]) * ((-1)^(linhaFixa + coluna)) * detLaplaceMatMenor();
+    }
+
+    return detM;
 }
 
 void Matrizes::imprime(){
@@ -123,7 +133,7 @@ int main() {
         cabecalho();
         cout << "\n";
         minhaMatriz.imprimeFormatada();
-        cout << "\n\t\xAF A matriz possui determinante\n\t det(M) = " << minhaMatriz.determinante() << "\n\n\t";
+        cout << "\n\t\xAF A matriz possui determinante\n\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
         system("pause");
 
     } else {
