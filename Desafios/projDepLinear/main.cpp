@@ -1,3 +1,7 @@
+// Projeto Relação de Dependência - Álgebra Linear
+// Arthur Castro
+// Setembro de 2019
+
 #include <iostream>
 using namespace std;
 

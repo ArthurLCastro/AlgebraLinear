@@ -1,3 +1,6 @@
+// Biblioteca "Vetores" para cálculos de Álgebra Linear
+// Arthur Castro
+
 #include "Vetores.h"
 
 // #define DEBUG

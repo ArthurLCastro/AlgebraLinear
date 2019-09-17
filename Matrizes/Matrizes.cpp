@@ -1,3 +1,6 @@
+// Biblioteca "Matrizes" para cálculos de Álgebra Linear
+// Arthur Castro
+
 #include "Matrizes.h"
 
 Matrizes::Matrizes(){
