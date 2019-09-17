@@ -9,7 +9,7 @@ PROGNAME = main
 CLS = clear
 
 TARGET = main
-TARGET2 = ..\Matrizes\Matrizes
+TARGET2 = ..\..\Vetores\Vetores
 
 #	Specify the source list
 SRC = $(TARGET).cpp $(TARGET2).cpp # for example: foo.cpp bar.cpp

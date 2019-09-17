@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "..\Matrizes\Matrizes.h"
+#include "..\..\Matrizes\Matrizes.h"
 
 unsigned int line, columns;
 

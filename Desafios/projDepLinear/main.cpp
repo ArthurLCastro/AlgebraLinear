@@ -1,7 +1,7 @@
 #include <iostream>
 using namespace std;
 
-#include "..\Vetores\Vetores.h"
+#include "..\..\Vetores\Vetores.h"
 
 unsigned int elementos, qtdVetores;
 
