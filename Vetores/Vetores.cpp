@@ -45,7 +45,7 @@ float Vetores::getValor(unsigned int indice){
 }
 
 //===================================== MAIN() =====================================
-unsigned int elementos;
+unsigned int elementos, qtdVetores;
 
 void apresentacao();
 void cabecalho();
@@ -56,6 +56,13 @@ Vetores vetorV;
 // Função Principal
 int main() {
     apresentacao();
+
+    cabecalho();
+    cout << "\n\t\xAF Insira a quantidade de vetores da lista: ";
+    cin >> qtdVetores;
+    for(int i=0; i<qtdVetores; i++){
+        Vetores *i;
+    }
 
     cabecalho();
     cout << "\n\t\xAF Insira a quantidade de elementos dos Vetores \"u\" e \"v\": ";
@@ -107,7 +114,7 @@ void apresentacao(){
     cout << "|                                                                              |\n";
     cout << "|                        PROJETO RELACAO DE DEPENDENCIA                        |\n";
     cout << "|                                                                              |\n";
-    cout << "|                     Verifica se dois vetores sao LI ou LD                    |\n";
+    cout << "|                Classifica uma lista de vetores como LI ou LD                 |\n";
     cout << "|                                                                              |\n";
     cout << "|                   ----------------------------------------                   |\n";
     cout << "|                                                                              |\n";
