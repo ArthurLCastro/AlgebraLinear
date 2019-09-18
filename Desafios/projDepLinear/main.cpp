@@ -5,15 +5,12 @@
 #include <iostream>
 using namespace std;
 
-#include "..\..\Vetores\Vetores.h"
+// #include "..\..\Vetores\Vetores.h"
 
 unsigned int elementos, qtdVetores;
 
 void apresentacao();
 void cabecalho();
-
-Vetores vetorU;
-Vetores vetorV;
 
 // Função Principal
 int main() {
@@ -22,47 +19,63 @@ int main() {
     cabecalho();
     cout << "\n\t\xAF Insira a quantidade de vetores da lista: ";
     cin >> qtdVetores;
-    for(int i=0; i<qtdVetores; i++){
-        // Declarar Objetos
-    }
-
-    cabecalho();
-    cout << "\n\t\xAF Insira a quantidade de elementos dos Vetores \"u\" e \"v\": ";
+    cout << "\n\t\xAF Insira a quantidade de elementos por vetor: ";
     cin >> elementos; 
-    vetorU.dimensao(elementos);
-    vetorV.dimensao(elementos);
-    cout << "\n\t";
-    system("pause");
+
+
+    // // Aloca dinamicamente o espaço necessário na memória para guardar os vetores
+    // // Vetores* arrayVetores = (Vetores*)malloc(qtdVetores * sizeof(Vetores));
+    // // Sabendo que um vetor é dimensionado como float** vetor = (float*)malloc(qtdElem * sizeof(float));
+    // Vetores* arrayVetores = (Vetores*)malloc(qtdVetores * sizeof(elementos * sizeof(float)));
+    //
+    // cabecalho();
+    // for (int numVetor=1; numVetor<=qtdVetores; numVetor++){
+    //     cout << "\n\t\xAF Atribua valores ao vetor " << numVetor << ".\n";
+    //     for (int indice=0; indice<elementos; indice++){
+    //         float valor;
+    //         cout << "\t\t> vetor" << numVetor << "(" << indice+1 << "): ";
+    //         cin >> valor;
+    //         arrayVetores[indice].setVetor(indice, valor);
+    //     }
+    // }
+
+
+    // // Aloca Dinamicamente o Espaço de Memória necessário
+    // float** arrayVetores = (float**)malloc(qtdVetores * sizeof(float*));
+    // for (int i=0; i<qtdVetores; i++){
+    //     arrayVetores[i]=(float*)malloc(elementos * sizeof(float));
+    //     for (int j=0; j<elementos; j++){
+    //         arrayVetores[i][j] = 0;
+    //     }
+    // }
+
+    float** arrayVetores = (float**)malloc(qtdVetores * sizeof(float*));
+    for (int i=0; i<qtdVetores; i++){
+        arrayVetores[i]=(float*)malloc(elementos * sizeof(float));
+    }
 
     cabecalho();
-    cout << "\n\t\xAF Atribua valores ao vetor \"u\": \n";
-    for (int indice=0; indice<elementos; indice++){
-        float valor;
-
-        cout << "\t\t> u(" << indice+1 << "): ";
-        cin >> valor;
-        vetorU.setVetor(indice, valor);
-    }
-    cout << "\n\t\xAF Atribua valores ao vetor \"v\": \n";
-    for (int indice=0; indice<elementos; indice++){
-        float valor;
-
-        cout << "\t\t> v(" << indice+1 << "): ";
-        cin >> valor;
-        vetorV.setVetor(indice, valor);
+    for (int numVetor=1; numVetor<=qtdVetores; numVetor++){
+        cout << "\n\t\xAF Atribua valores ao vetor " << numVetor << ".\n";
+        for (int indice=1; indice<=elementos; indice++){
+            float valor;
+            cout << "\t\t> vetor" << numVetor << "(" << indice << "): ";
+            cin >> valor;
+            arrayVetores[numVetor-1][indice-1] = valor;
+        }
     }
 
-    cabecalho();
-    cout << "\n\t\xAF Os vetores\n\n";
-    for(int indice=0; indice<elementos; indice++){
-        cout << "\t\tu(" << indice+1 << "): " << vetorU.getValor(indice) << "\n";
-    }
-    cout << "\n";
-    for(int indice=0; indice<elementos; indice++){
-        cout << "\t\tv(" << indice+1 << "): " << vetorV.getValor(indice) << "\n";
-    }
+    // cabecalho();
+    // cout << "\n\t\xAF Os vetores\n\n";
+    // for(int indice=0; indice<elementos; indice++){
+    //     cout << "\t\tu(" << indice+1 << "): " << vetorU.getValor(indice) << "\n";
+    // }
+    // cout << "\n";
+    // for(int indice=0; indice<elementos; indice++){
+    //     cout << "\t\tv(" << indice+1 << "): " << vetorV.getValor(indice) << "\n";
+    // }
 
-    cout << "\n\t   sao " << "dependencia\n\n\t";
+    // cout << "\n\t   sao " << "dependencia\n\n\t";
 
     system("pause");
     return 0;
