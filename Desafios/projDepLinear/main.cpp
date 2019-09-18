@@ -16,6 +16,8 @@ void cabecalho();
 
 // Função Principal
 int main() {
+    string dependencia = "Linearmente ...";
+
     apresentacao();
 
     cabecalho();
@@ -41,6 +43,12 @@ int main() {
         }
     }
 
+    // if ( .depLinear() == false){
+    //     dependencia = "LI";
+    // } else {
+    //     dependencia = "LD";
+    // }
+
     cabecalho();
     cout << "\n\t\xAF Os vetores\n\n";
     for(int numVetor=1; numVetor<=qtdVetores; numVetor++){
@@ -49,7 +57,7 @@ int main() {
         }
         cout << "\n";
     }
-    cout << "\n\t   sao " << "dependencia\n\n\t";
+    cout << "\n\t   sao " << dependencia << "\n\n\t";
 
     system("pause");
     return 0;
