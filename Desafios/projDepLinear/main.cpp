@@ -65,17 +65,15 @@ int main() {
         }
     }
 
-    // cabecalho();
-    // cout << "\n\t\xAF Os vetores\n\n";
-    // for(int indice=0; indice<elementos; indice++){
-    //     cout << "\t\tu(" << indice+1 << "): " << vetorU.getValor(indice) << "\n";
-    // }
-    // cout << "\n";
-    // for(int indice=0; indice<elementos; indice++){
-    //     cout << "\t\tv(" << indice+1 << "): " << vetorV.getValor(indice) << "\n";
-    // }
-
-    // cout << "\n\t   sao " << "dependencia\n\n\t";
+    cabecalho();
+    cout << "\n\t\xAF Os vetores\n\n";
+    for(int numVetor=1; numVetor<=qtdVetores; numVetor++){
+        for(int indice=1; indice<=elementos; indice++){
+            cout << "\t\t> vetor" << numVetor << "(" << indice << "): " << arrayVetores[numVetor-1][indice-1] << "\n";
+        }
+        cout << "\n";
+    }
+    cout << "\n\t   sao " << "dependencia\n\n\t";
 
     system("pause");
     return 0;
