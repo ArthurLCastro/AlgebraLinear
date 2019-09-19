@@ -48,11 +48,12 @@ int main() {
         minhaMatriz.imprimeFormatada();
 
         unsigned int linhaDelete, colunaDelete;
-        cout << "\t\xAF Linha a ser deletada: ";
+        cout << "\xAF Linha a ser deletada: ";
         cin >> linhaDelete;
         cout << "\t\xAF Coluna a ser deletada: ";
         cin >> colunaDelete;
         minhaMatriz.diminuirMatriz(linhaDelete, colunaDelete);
+        cout << "\n";
         minhaMatriz.imprimeFormatada();
         system("pause");
         
