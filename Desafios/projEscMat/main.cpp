@@ -38,13 +38,10 @@ int main() {
             minhaMatriz.setMatriz(linha-1, coluna-1, valor);
         }
     }
-    
-    minhaMatriz.imprimeFormatada();
-    system("pause");
-    
-    // Teste de Impressão da Matriz Auxiliar para cálculo de cofator
-    system("cls");
-    minhaMatriz.calcCofator(1,1);
+ 
+    cout << "DEBUG 1 COFATOR";
+    minhaMatriz.calcCofator(2,1);
+    cout << "DEBUG 2 COFATOR";
 
     // // Calcula e imprime o determinante e a matriz
     // cabecalho();

@@ -92,40 +92,53 @@ void Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Ver
             matrizAuxiliar.imprimeFormatada();
         #endif
 
-        // matrizAuxiliar.diminuirMatriz(linha, coluna);
+        cout << "\nLinha Delete: " << linha;
+        cout << "\nColuna Delete: " << coluna;
+        matrizAuxiliar.diminuirMatriz(linha, coluna);
+
+        #ifdef DEBUG
+            cout << "\n\nImpressao da Matriz Auxiliar Diminuida:\n";
+            matrizAuxiliar.imprimeFormatada();
+        #endif
+
         // return (((-1)^(linha + coluna)) * matrizAuxiliar.detLaplace());
     } else {
-        cout << "Matriz nao quadrada! \n";
+        cout << "[Erro calcCofator()] Matriz nao quadrada! \n";
         system("pause");
     }
 }
 
 void Matrizes::diminuirMatriz(unsigned int linhaDel, unsigned int colunaDel){         // Inserir dados da Matriz Automaticamente
-    // Copia os valores da linha abaixo da linhaDel para uma linha acima
-    for (int count=0; count<ordemMatQuad; count++){
-        for(int aux=0; aux<(ordemMatQuad-linhaDel); aux++){
-            mat[(linhaDel-1)+aux][count] = mat[(linhaDel-1)+(aux+1)][count];
+    if(this->quadrada()){
+        // Copia os valores da linha abaixo da linhaDel para uma linha acima
+        for (int count=0; count<ordemMatQuad; count++){
+            for(int aux=0; aux<(ordemMatQuad-linhaDel); aux++){
+                mat[(linhaDel-1)+aux][count] = mat[(linhaDel-1)+(aux+1)][count];
+            }
         }
-    }
-    // Insere NULL à última linha da matriz maior
-    for (int inc=0; inc<ordemMatQuad; inc++){
-        mat[ordemMatQuad-1][inc] = NULL;
-    }
-
-    // Copia os valores da coluna à direita da colunaDel para uma coluna à esquerda
-    for (int count=0; count<ordemMatQuad; count++){
-        for(int aux=0; aux<(ordemMatQuad-colunaDel); aux++){
-            mat[count][(colunaDel-1)+aux] = mat[count][(colunaDel-1)+(aux+1)];
+        // Insere NULL à última linha da matriz maior
+        for (int inc=0; inc<ordemMatQuad; inc++){
+            mat[ordemMatQuad-1][inc] = NULL;
         }
-    }
-    // Insere NULL à última coluna da matriz maior
-    for (int inc=0; inc<ordemMatQuad; inc++){
-        mat[inc][ordemMatQuad-1] = NULL;
-    }
 
-    numLinhas--;
-    numColunas--;  
-    ordemMatQuad--;
+        // Copia os valores da coluna à direita da colunaDel para uma coluna à esquerda
+        for (int count=0; count<ordemMatQuad; count++){
+            for(int aux=0; aux<(ordemMatQuad-colunaDel); aux++){
+                mat[count][(colunaDel-1)+aux] = mat[count][(colunaDel-1)+(aux+1)];
+            }
+        }
+        // Insere NULL à última coluna da matriz maior
+        for (int inc=0; inc<ordemMatQuad; inc++){
+            mat[inc][ordemMatQuad-1] = NULL;
+        }
+
+        numLinhas--;
+        numColunas--;  
+        ordemMatQuad--;
+    } else {
+        cout << "[Erro diminuir()] Matriz nao quadrada! \n";
+        system("pause");
+    }
 }
 
 void Matrizes::imprime(){
