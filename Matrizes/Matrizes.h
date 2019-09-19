@@ -22,7 +22,7 @@ class Matrizes{
         unsigned int getQtdLinhas();
         unsigned int getQtdColunas();
         bool quadrada();
-        void setMatriz();
+        void setMatriz(unsigned int, unsigned int, float);
         float detLaplace();
         void imprime();
         void imprimeFormatada();
