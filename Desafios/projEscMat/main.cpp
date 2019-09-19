@@ -39,16 +39,12 @@ int main() {
         }
     }
  
-    cout << "DEBUG 1 COFATOR";
-    minhaMatriz.calcCofator(2,1);
-    cout << "DEBUG 2 COFATOR";
-
-    // // Calcula e imprime o determinante e a matriz
-    // cabecalho();
-    // cout << "\n";
-    // minhaMatriz.imprimeFormatada();
-    // cout << "\n\t\xAF A matriz possui determinante\n\n\t\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
-    // system("pause");
+    // Calcula e imprime o determinante e a matriz
+    cabecalho();
+    cout << "\n";
+    minhaMatriz.imprimeFormatada();
+    cout << "\n\t\xAF A matriz possui determinante\n\n\t\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
+    system("pause");
 
     return 0;
 }

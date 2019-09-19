@@ -3,7 +3,7 @@
 
 #include "Matrizes.h"
 
-#define DEBUG
+// #define DEBUG
 
 Matrizes::Matrizes(){
 }
@@ -62,21 +62,26 @@ float Matrizes::detLaplace(){
     unsigned int linhaFixa = 0;     // Verificar o tipo da "variável", mudar para constante
     unsigned int coluna;
 
-    if(this->getQtdLinhas() == 1){          // Se a ordem da Matriz for 1, o determinante é o próprio valor do elemento que a compõe
-        detM = mat[0][0];
+    if(quadrada()){
+        if(this->getQtdLinhas() == 1){          // Se a ordem da Matriz for 1, o determinante é o próprio valor do elemento que a compõe
+            cout << "[DEBUG] Matriz de ordem 1";
+            detM = mat[0][0];
+        } else {
+            cout << "[DEBUG] Matriz de ordem maior que 1";
+            cout << "\nordemMatQuad: " << ordemMatQuad << "\n";
+            for(coluna=1; coluna<=ordemMatQuad; coluna++){
+                cout << "[DEBUG (detLaplace)] For: " << coluna << "\n";
+                detM += ((mat[linhaFixa][coluna-1]) * calcCofator(linhaFixa, coluna-1));
+            }
+        }
+        return detM;
     } else {
-        calcCofator(0, 0);
-        // // cout << "[DEBUG] Matriz de ordem maior que 1";
-        // for(coluna=1; coluna<=ordemMatQuad; coluna++){
-        //     detM += (mat[linhaFixa][coluna-1]) * calcCofator(linhaFixa, coluna-1);
-        // }
+        cout << "[Erro detLaplace()] Matriz nao quadrada! \n";
+        system("pause");
     }
-
-    return detM;
 }
 
-// float Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Verificar se o tipo float é adequado
-void Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Verificar se o tipo float é adequado
+float Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Verificar se o tipo float é adequado
     if(this->quadrada()){
         unsigned int ordemMatAux = ordemMatQuad;
         Matrizes matrizAuxiliar(ordemMatAux);
@@ -90,18 +95,18 @@ void Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Ver
         #ifdef DEBUG
             cout << "Impressao da Matriz Auxiliar:\n";
             matrizAuxiliar.imprimeFormatada();
+            cout << "\nLinha a ser deletada: " << linha;
+            cout << "\nColuna a ser deletada: " << coluna;
         #endif
 
-        cout << "\nLinha Delete: " << linha;
-        cout << "\nColuna Delete: " << coluna;
-        matrizAuxiliar.diminuirMatriz(linha, coluna);
+        matrizAuxiliar.diminuirMatriz(linha+1, coluna+1);
 
         #ifdef DEBUG
             cout << "\n\nImpressao da Matriz Auxiliar Diminuida:\n";
             matrizAuxiliar.imprimeFormatada();
         #endif
 
-        // return (((-1)^(linha + coluna)) * matrizAuxiliar.detLaplace());
+        return (((-1)^((linha+1) + (coluna+1))) * matrizAuxiliar.detLaplace());
     } else {
         cout << "[Erro calcCofator()] Matriz nao quadrada! \n";
         system("pause");

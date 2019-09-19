@@ -27,8 +27,7 @@ class Matrizes{
         void imprime();
         void imprimeFormatada();
         void diminuirMatriz(unsigned int, unsigned int);
-        // float calcCofator(unsigned int, unsigned int);
-        void calcCofator(unsigned int, unsigned int);
+        float calcCofator(unsigned int, unsigned int);
 };
 
 #endif
