@@ -12,7 +12,7 @@ class Matrizes{
         unsigned int numLinhas = 0, numColunas = 0;
         unsigned int ordemMatQuad = 0;
         // void diminuirMatriz(unsigned int, unsigned int);
-        float calcCofator(unsigned int, unsigned int);
+        // float calcCofator(unsigned int, unsigned int);
  
  	public:
         Matrizes();
@@ -27,6 +27,8 @@ class Matrizes{
         void imprime();
         void imprimeFormatada();
         void diminuirMatriz(unsigned int, unsigned int);
+        // float calcCofator(unsigned int, unsigned int);
+        void calcCofator(unsigned int, unsigned int);
 };
 
 #endif

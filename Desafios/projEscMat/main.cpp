@@ -38,13 +38,20 @@ int main() {
             minhaMatriz.setMatriz(linha-1, coluna-1, valor);
         }
     }
-
-    // Calcula e imprime o determinante e a matriz
-    cabecalho();
-    cout << "\n";
+    
     minhaMatriz.imprimeFormatada();
-    cout << "\n\t\xAF A matriz possui determinante\n\n\t\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
     system("pause");
+    
+    // Teste de Impressão da Matriz Auxiliar para cálculo de cofator
+    system("cls");
+    minhaMatriz.calcCofator(1,1);
+
+    // // Calcula e imprime o determinante e a matriz
+    // cabecalho();
+    // cout << "\n";
+    // minhaMatriz.imprimeFormatada();
+    // cout << "\n\t\xAF A matriz possui determinante\n\n\t\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
+    // system("pause");
 
     return 0;
 }

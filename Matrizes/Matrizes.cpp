@@ -3,6 +3,8 @@
 
 #include "Matrizes.h"
 
+#define DEBUG
+
 Matrizes::Matrizes(){
 }
 
@@ -15,33 +17,36 @@ Matrizes::Matrizes(unsigned int linhas, unsigned int colunas){
 }
 
 void Matrizes::dimensoes(unsigned int qtdLinhas, unsigned int qtdColunas){
-    numLinhas = qtdLinhas;
-    numColunas = qtdColunas;
+    this->numLinhas = qtdLinhas;
+    this->numColunas = qtdColunas;
 
-    cout << "\nQuantidade de Linhas: " << qtdLinhas;
-    cout << "\nQuantidade de Colunas: " << qtdColunas;
-    cout << "\n";
+    #ifdef DEBUG
+        cout << "\n\n[DEBUG](dimensoes) Quantidade de Linhas: " << numLinhas;
+        cout << "\n[DEBUG](dimensoes) Quantidade de Colunas: " << numColunas;
+        cout << "\n";
+        system("pause");
+    #endif
 
     // Aloca Dinamicamente o Espaço de Memória necessário
-    float** matriz = (float**)malloc(qtdLinhas * sizeof(float*));
-    for (int i=0; i<(qtdColunas); i++){
-        matriz[i]=(float*)malloc(qtdColunas * sizeof(float));
+    float** matriz = (float**)malloc(numLinhas * sizeof(float*));
+    for (int i=0; i<numColunas; i++){
+        matriz[i]=(float*)malloc(numColunas * sizeof(float));
     }
     // Torna uma matriz global
-    mat = matriz;
+    this->mat = matriz;
 }
 
 unsigned int Matrizes::getQtdLinhas(){
-    return numLinhas;
+    return this->numLinhas;
 }
 
 unsigned int Matrizes::getQtdColunas(){
-    return numColunas;
+    return this->numColunas;
 }
 
 bool Matrizes::quadrada(){
-    if(numLinhas == numColunas){
-        ordemMatQuad = numLinhas;
+    if(this->numLinhas == this->numColunas){
+        this->ordemMatQuad = this->numLinhas;
         return true;
     } else {
         return false;
@@ -49,7 +54,7 @@ bool Matrizes::quadrada(){
 }
 
 void Matrizes::setMatriz(unsigned int linha, unsigned int coluna, float valor){         // Inserir dados da Matriz
-    mat[linha][coluna] = valor;
+    this->mat[linha][coluna] = valor;
 }
 
 float Matrizes::detLaplace(){
@@ -60,28 +65,39 @@ float Matrizes::detLaplace(){
     if(this->getQtdLinhas() == 1){          // Se a ordem da Matriz for 1, o determinante é o próprio valor do elemento que a compõe
         detM = mat[0][0];
     } else {
-        // cout << "[DEBUG] Matriz de ordem maior que 1";
-        for(coluna=1; coluna<=ordemMatQuad; coluna++){
-            coluna--;
-            detM += (mat[linhaFixa][coluna]) * calcCofator(linhaFixa, coluna);
-        }
+        calcCofator(0, 0);
+        // // cout << "[DEBUG] Matriz de ordem maior que 1";
+        // for(coluna=1; coluna<=ordemMatQuad; coluna++){
+        //     detM += (mat[linhaFixa][coluna-1]) * calcCofator(linhaFixa, coluna-1);
+        // }
     }
 
     return detM;
 }
 
-float Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Verificar se o tipo float é adequado
-    unsigned int ordemMatAux = ordemMatQuad - 1;
-    Matrizes matrizAuxiliar(ordemMatAux);
+// float Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Verificar se o tipo float é adequado
+void Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Verificar se o tipo float é adequado
+    if(this->quadrada()){
+        unsigned int ordemMatAux = ordemMatQuad;
+        Matrizes matrizAuxiliar(ordemMatAux);
 
-    for (int linha=1; linha<=ordemMatAux; linha++){
-        for (int coluna=1; coluna<=ordemMatAux; coluna++){
-            matrizAuxiliar.setMatriz(linha-1, coluna-1, mat[linha-1][coluna-1]);
+        for (int line=1; line<=ordemMatAux; line++){
+            for (int column=1; column<=ordemMatAux; column++){
+                matrizAuxiliar.setMatriz(line-1, column-1, this->mat[line-1][column-1]);
+            }
         }
-    }
 
-    matrizAuxiliar.diminuirMatriz(linha, coluna);
-    return (((-1)^(linha + coluna)) * matrizAuxiliar.detLaplace());
+        #ifdef DEBUG
+            cout << "Impressao da Matriz Auxiliar:\n";
+            matrizAuxiliar.imprimeFormatada();
+        #endif
+
+        // matrizAuxiliar.diminuirMatriz(linha, coluna);
+        // return (((-1)^(linha + coluna)) * matrizAuxiliar.detLaplace());
+    } else {
+        cout << "Matriz nao quadrada! \n";
+        system("pause");
+    }
 }
 
 void Matrizes::diminuirMatriz(unsigned int linhaDel, unsigned int colunaDel){         // Inserir dados da Matriz Automaticamente
