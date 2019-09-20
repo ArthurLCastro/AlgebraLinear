@@ -3,7 +3,7 @@
 
 #include "Matrizes.h"
 
-// #define DEBUG
+#define DEBUG
 
 Matrizes::Matrizes(){
 }
@@ -64,14 +64,15 @@ float Matrizes::detLaplace(){
 
     if(quadrada()){
         if(this->getQtdLinhas() == 1){          // Se a ordem da Matriz for 1, o determinante é o próprio valor do elemento que a compõe
-            cout << "[DEBUG] Matriz de ordem 1";
+            cout << "\n[DEBUG] Matriz de ordem 1";
             detM = mat[0][0];
         } else {
-            cout << "[DEBUG] Matriz de ordem maior que 1";
+            cout << "\n[DEBUG] Matriz de ordem maior que 1";
             cout << "\nordemMatQuad: " << ordemMatQuad << "\n";
             for(coluna=1; coluna<=ordemMatQuad; coluna++){
-                cout << "[DEBUG (detLaplace)] For: " << coluna << "\n";
-                detM += ((mat[linhaFixa][coluna-1]) * calcCofator(linhaFixa, coluna-1));
+                cout << "\n[DEBUG (detLaplace)] For: " << coluna << "\n";
+                detM += ((mat[linhaFixa][coluna-1]) * calcCofator(linhaFixa+1, coluna));
+                cout << "\n\n Determinante parcial: " << detM << "\n";
             }
         }
         return detM;
@@ -99,14 +100,17 @@ float Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Ve
             cout << "\nColuna a ser deletada: " << coluna;
         #endif
 
-        matrizAuxiliar.diminuirMatriz(linha+1, coluna+1);
+        matrizAuxiliar.diminuirMatriz(linha, coluna);
 
         #ifdef DEBUG
             cout << "\n\nImpressao da Matriz Auxiliar Diminuida:\n";
             matrizAuxiliar.imprimeFormatada();
         #endif
-
-        return (((-1)^((linha+1) + (coluna+1))) * matrizAuxiliar.detLaplace());
+        float detLap = matrizAuxiliar.detLaplace();
+        cout << "\n\nDEBUG DetLap = " << pow(detLap,2);
+        float cofator = ((pow(-1,((linha) + (coluna)))) * detLap);
+        cout << "\n\nDEBUG Cofator = " << cofator;
+        return cofator; 
     } else {
         cout << "[Erro calcCofator()] Matriz nao quadrada! \n";
         system("pause");

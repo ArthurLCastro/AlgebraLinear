@@ -38,13 +38,27 @@ int main() {
             minhaMatriz.setMatriz(linha-1, coluna-1, valor);
         }
     }
- 
-    // Calcula e imprime o determinante e a matriz
+
+    // TESTE - Calculo de Cofator
     cabecalho();
     cout << "\n";
     minhaMatriz.imprimeFormatada();
-    cout << "\n\t\xAF A matriz possui determinante\n\n\t\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
+    unsigned int lin, col;
+    cout << "Linha para cofator: ";
+    cin >> lin;
+    cout << "\n";
+    cout << "Coluna para cofator: ";
+    cin >> col;
+    cout << "\n";
+    cout << "\n\t\xAF A matriz possui cofator\n\n\t\t" << minhaMatriz.calcCofator(lin, col) << "\n\n\t";
     system("pause");
+
+    // // Calcula e imprime o determinante e a matriz
+    // cabecalho();
+    // cout << "\n";
+    // minhaMatriz.imprimeFormatada();
+    // cout << "\n\t\xAF A matriz possui determinante\n\n\t\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
+    // system("pause");
 
     return 0;
 }
