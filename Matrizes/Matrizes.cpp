@@ -3,7 +3,7 @@
 
 #include "Matrizes.h"
 
-#define DEBUG
+// #define DEBUG
 
 Matrizes::Matrizes(){
 }
@@ -64,15 +64,20 @@ float Matrizes::detLaplace(){
 
     if(quadrada()){
         if(this->getQtdLinhas() == 1){          // Se a ordem da Matriz for 1, o determinante é o próprio valor do elemento que a compõe
+            #ifdef DEBUG
             cout << "\n[DEBUG] Matriz de ordem 1";
+            #endif
             detM = mat[0][0];
         } else {
+            #ifdef DEBUG
             cout << "\n[DEBUG] Matriz de ordem maior que 1";
             cout << "\nordemMatQuad: " << ordemMatQuad << "\n";
+            #endif
             for(coluna=1; coluna<=ordemMatQuad; coluna++){
-                cout << "\n[DEBUG (detLaplace)] For: " << coluna << "\n";
                 detM += ((mat[linhaFixa][coluna-1]) * calcCofator(linhaFixa+1, coluna));
+                #ifdef DEBUG
                 cout << "\n\n Determinante parcial: " << detM << "\n";
+                #endif
             }
         }
         return detM;
@@ -106,11 +111,7 @@ float Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Ve
             cout << "\n\nImpressao da Matriz Auxiliar Diminuida:\n";
             matrizAuxiliar.imprimeFormatada();
         #endif
-        float detLap = matrizAuxiliar.detLaplace();
-        cout << "\n\nDEBUG DetLap = " << pow(detLap,2);
-        float cofator = ((pow(-1,((linha) + (coluna)))) * detLap);
-        cout << "\n\nDEBUG Cofator = " << cofator;
-        return cofator; 
+        return ((pow(-1,((linha) + (coluna)))) * matrizAuxiliar.detLaplace());
     } else {
         cout << "[Erro calcCofator()] Matriz nao quadrada! \n";
         system("pause");
