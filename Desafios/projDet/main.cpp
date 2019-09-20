@@ -7,7 +7,7 @@ using namespace std;
 
 #include "..\..\Matrizes\Matrizes.h"
 
-unsigned int line, columns;
+unsigned int ordem;
 
 void apresentacao();
 void cabecalho();
@@ -21,49 +21,30 @@ int main() {
 
     // Definição das dimensões da matriz
     cabecalho();
-    cout << "\n\t\xAF Insira a quantidade de Linhas da Matriz: ";
-    cin >> line;
-    cout << "\t\xAF Insira a quantidade de Colunas da Matriz: ";
-    cin >> columns;
-    minhaMatriz.dimensoes(line, columns);
+    cout << "\n\t\xAF Insira a ordem da Matriz quadrada: ";
+    cin >> ordem;
+    minhaMatriz.dimensoes(ordem, ordem);
 
+    // Insere valores à matriz
     cabecalho();
-    if (minhaMatriz.quadrada()){                // Verifica se a matriz é quadrada
-        // Insere valores à matriz
-        cout << "\n\t\xAF Insira os valores da matriz como a do exemplo a seguir:\n\n";
-        matrizDemo();
-        cout << "\n";
-        minhaMatriz.setMatriz();
-    
-        // // Calcula e imprime o determinante e a matriz
-        // cabecalho();
-        // cout << "\n";
-        // minhaMatriz.imprimeFormatada();
-        // cout << "\n\t\xAF A matriz possui determinante\n\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
-        // system("pause");
-
-        // TESTE DIMINUIR MATRIZ
-        cabecalho();
-        cout << "\n";
-        minhaMatriz.imprimeFormatada();
-
-        unsigned int linhaDelete, colunaDelete;
-        cout << "\t\xAF Linha a ser deletada: ";
-        cin >> linhaDelete;
-        cout << "\t\xAF Coluna a ser deletada: ";
-        cin >> colunaDelete;
-        minhaMatriz.diminuirMatriz(linhaDelete, colunaDelete);
-        minhaMatriz.imprimeFormatada();
-        system("pause");
-        
-
-    } else {
-        // Imprime mensagem de erro
-        cout << "\n\tMATRIZ INVALIDA!";
-        cout << "\n\tInsira uma matriz quadrada! (Ex: n x n)\n\n\t";
-        system("pause");
-        return 0;
+    cout << "\n\t\xAF Insira os valores da matriz como a do exemplo a seguir:\n\n";
+    matrizDemo();
+    cout << "\n";
+    for (int linha=1; linha<=ordem; linha++){
+        for (int coluna=1; coluna<=ordem; coluna++){
+            float valor;
+            cout << "\t> a(" << linha << " " << coluna << "): ";
+            cin >> valor;
+            minhaMatriz.setMatriz(linha-1, coluna-1, valor);
+        }
     }
+
+    // Calcula e imprime o determinante e a matriz
+    cabecalho();
+    cout << "\n";
+    minhaMatriz.imprimeFormatada();
+    cout << "\n\t\xAF A matriz possui determinante\n\n\t\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
+    system("pause");
 
     return 0;
 }

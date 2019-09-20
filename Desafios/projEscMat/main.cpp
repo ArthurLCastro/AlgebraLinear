@@ -1,4 +1,4 @@
-// Projeto Determinates - Álgebra Linear
+// Projeto Escalonamento de Matrizes - Álgebra Linear
 // Arthur Castro
 // Setembro de 2019
 
@@ -7,7 +7,7 @@ using namespace std;
 
 #include "..\..\Matrizes\Matrizes.h"
 
-unsigned int ordem;
+unsigned int line, columns;
 
 void apresentacao();
 void cabecalho();
@@ -21,30 +21,18 @@ int main() {
 
     // Definição das dimensões da matriz
     cabecalho();
-    cout << "\n\t\xAF Insira a ordem da Matriz quadrada: ";
-    cin >> ordem;
-    minhaMatriz.dimensoes(ordem, ordem);
+    cout << "\n\t\xAF Insira a quantidade de Linhas da Matriz: ";
+    cin >> line;
+    cout << "\t\xAF Insira a quantidade de Colunas da Matriz: ";
+    cin >> columns;
+    minhaMatriz.dimensoes(line, columns);
 
     // Insere valores à matriz
     cabecalho();
     cout << "\n\t\xAF Insira os valores da matriz como a do exemplo a seguir:\n\n";
     matrizDemo();
     cout << "\n";
-    for (int linha=1; linha<=ordem; linha++){
-        for (int coluna=1; coluna<=ordem; coluna++){
-            float valor;
-            cout << "\t> a(" << linha << " " << coluna << "): ";
-            cin >> valor;
-            minhaMatriz.setMatriz(linha-1, coluna-1, valor);
-        }
-    }
-
-    // Calcula e imprime o determinante e a matriz
-    cabecalho();
-    cout << "\n";
-    minhaMatriz.imprimeFormatada();
-    cout << "\n\t\xAF A matriz possui determinante\n\n\t\t det(M) = " << minhaMatriz.detLaplace() << "\n\n\t";
-    system("pause");
+    minhaMatriz.setMatriz();        
 
     return 0;
 }
@@ -55,8 +43,7 @@ void apresentacao(){
     cout << "================================================================================\n";
     cout << "|                                                                              |\n";
     cout << "|                                                                              |\n";
-    cout << "|                            DETERMINANTE DE MATRIZ                            |\n";
-    cout << "|                          QUADRADA DE QUALQUER ORDEM                          |\n";
+    cout << "|                            ESCALONAMENTO DE MATRIZ                           |\n";
     cout << "|                                                                              |\n";
     cout << "|                                                                              |\n";
     cout << "|                   ----------------------------------------                   |\n";
@@ -73,7 +60,7 @@ void apresentacao(){
 void cabecalho(){
     system("cls");
     cout << "================================================================================\n";
-    cout << "|               DETERMINANTE DE MATRIZ QUADRADA DE QUALQUER ORDEM              |\n";
+    cout << "|                            ESCALONAMENTO DE MATRIZ                           |\n";
     cout << "================================================================================\n\n";
 }
 
