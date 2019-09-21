@@ -4,7 +4,7 @@
 #include "Matrizes.h"
 
 // #define DEBUG
-#define DEBUG_elimGauss
+// #define DEBUG_elimGauss
 // #define DEBUG_pivo
 
 Matrizes::Matrizes(){
@@ -192,34 +192,42 @@ void Matrizes::elimGauss(){
     matEscalonamento.imprimeFormatada();
     #endif
 
-    // Zera os elementos abaixo dos pivos:
-    for(unsigned int linha=1; linha<=numLinhas; linha++){
-        cout << "\n\t[For DEBUG] " << linha << "\n";
-        float valorDoPivo;
-        valorDoPivo = matEscalonamento.pivo(linha, "valor");
-        cout << "\n\t[Piv DEBUG] " << valorDoPivo << "\n";
+    // // Zera os elementos da coluna abaixo de cada pivo:
+    // for(coluna){
+        // Zera os elementos da coluna abaixo do pivo:
+        for(unsigned int linha=1; linha<=numLinhas; linha++){
+            float valorDoPivo, colunaPivo;
+            valorDoPivo = matEscalonamento.pivo(linha, "valor");
+            colunaPivo = matEscalonamento.pivo(linha, "encontrarColuna");
+            #ifdef DEBUG_elimGauss
+            cout << "\n\t[DEBUG_elimGauss] Linha do Pivo: " << linha << "\n";
+            cout << "\n\t[DEBUG_elimGauss] Coluna do Pivo: " << colunaPivo << "\n";
+            cout << "\n\t[DEBUG_elimGauss] Valor do Pivo:" << valorDoPivo << "\n\n";
+            #endif
 
-        if(valorDoPivo == 1){
-            #ifdef DEBUG_elimGauss
-            cout << "\n[DEBUG_elimGauss] Pivo igual a '1'\n";
-            #endif
-            // L2 <- -a(21)*L1 + L2
-            // L3 <- -a(31)*L1 + L3
-            // Ln <- -a(3n)*L1 + Ln
-        } else if(valorDoPivo == -1){
-            #ifdef DEBUG_elimGauss
-            cout << "\n[DEBUG_elimGauss] Pivo igual a '-1'\n";
-            #endif
-            // L2 <- a(21)*L1 + L2
-            // L3 <- a(31)*L1 + L3
-            // Ln <- a(3n)*L1 + Ln
-        } else {
-            #ifdef DEBUG_elimGauss
-            cout << "\n[DEBUG_elimGauss] Pivo diferente de '1' ou '-1'\n";
-            #endif
+            if(valorDoPivo == 1){
+                #ifdef DEBUG_elimGauss
+                cout << "\n[DEBUG_elimGauss] Pivo igual a '1'\n";
+                #endif
+                // L2 <- -a(21)*L1 + L2
+                // L3 <- -a(31)*L1 + L3
+                // Ln <- -a(3n)*L1 + Ln
+                // L(linhaPivo+1) <- -a(linhaPivo+1 colunaPivo)*L(linhaPivo) + L(linhaPivo+1)
+            } else if(valorDoPivo == -1){
+                #ifdef DEBUG_elimGauss
+                cout << "\n[DEBUG_elimGauss] Pivo igual a '-1'\n";
+                #endif
+                // L2 <- a(21)*L1 + L2
+                // L3 <- a(31)*L1 + L3
+                // Ln <- a(3n)*L1 + Ln
+            } else {
+                #ifdef DEBUG_elimGauss
+                cout << "\n[DEBUG_elimGauss] Pivo diferente de '1' ou '-1'\n";
+                #endif
+            }
         }
-    }
-    
+    // }
+
     // // TESTES PIVO
     // unsigned int colunaPivo, valorPivo, linha;
     // cout << "\nInsira o valor da Linha a se procurar o pivo: ";
