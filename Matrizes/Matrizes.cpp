@@ -29,7 +29,7 @@ void Matrizes::dimensoes(unsigned int qtdLinhas, unsigned int qtdColunas){
 
     // Aloca Dinamicamente o Espaço de Memória necessário
     float** matriz = (float**)malloc(numLinhas * sizeof(float*));
-    for (int i=0; i<numColunas; i++){
+    for (unsigned int i=0; i<numLinhas; i++){
         matriz[i]=(float*)malloc(numColunas * sizeof(float));
     }
     // Torna uma matriz global
@@ -92,8 +92,8 @@ float Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Ve
         unsigned int ordemMatAux = ordemMatQuad;
         Matrizes matrizAuxiliar(ordemMatAux);
 
-        for (int line=1; line<=ordemMatAux; line++){
-            for (int column=1; column<=ordemMatAux; column++){
+        for (unsigned int line=1; line<=ordemMatAux; line++){
+            for (unsigned int column=1; column<=ordemMatAux; column++){
                 matrizAuxiliar.setMatriz(line-1, column-1, this->mat[line-1][column-1]);
             }
         }
@@ -121,24 +121,24 @@ float Matrizes::calcCofator(unsigned int linha, unsigned int coluna){      // Ve
 void Matrizes::diminuirMatriz(unsigned int linhaDel, unsigned int colunaDel){         // Inserir dados da Matriz Automaticamente
     if(this->quadrada()){
         // Copia os valores da linha abaixo da linhaDel para uma linha acima
-        for (int count=0; count<ordemMatQuad; count++){
-            for(int aux=0; aux<(ordemMatQuad-linhaDel); aux++){
+        for (unsigned int count=0; count<ordemMatQuad; count++){
+            for(unsigned int aux=0; aux<(ordemMatQuad-linhaDel); aux++){
                 mat[(linhaDel-1)+aux][count] = mat[(linhaDel-1)+(aux+1)][count];
             }
         }
         // Insere NULL à última linha da matriz maior
-        for (int inc=0; inc<ordemMatQuad; inc++){
+        for (unsigned int inc=0; inc<ordemMatQuad; inc++){
             mat[ordemMatQuad-1][inc] = NULL;
         }
 
         // Copia os valores da coluna à direita da colunaDel para uma coluna à esquerda
-        for (int count=0; count<ordemMatQuad; count++){
-            for(int aux=0; aux<(ordemMatQuad-colunaDel); aux++){
+        for (unsigned int count=0; count<ordemMatQuad; count++){
+            for(unsigned int aux=0; aux<(ordemMatQuad-colunaDel); aux++){
                 mat[count][(colunaDel-1)+aux] = mat[count][(colunaDel-1)+(aux+1)];
             }
         }
         // Insere NULL à última coluna da matriz maior
-        for (int inc=0; inc<ordemMatQuad; inc++){
+        for (unsigned int inc=0; inc<ordemMatQuad; inc++){
             mat[inc][ordemMatQuad-1] = NULL;
         }
 
@@ -152,8 +152,8 @@ void Matrizes::diminuirMatriz(unsigned int linhaDel, unsigned int colunaDel){   
 }
 
 void Matrizes::imprime(){
-    for(int i=0; i<numLinhas; i++){
-        for(int j=0; j<numColunas; j++){
+    for(unsigned int i=0; i<numLinhas; i++){
+        for(unsigned int j=0; j<numColunas; j++){
             cout << "\na" << i+1 << j+1 << ": " << mat[i][j];
         }
     }
@@ -174,4 +174,8 @@ void Matrizes::imprimeFormatada(){
         }
     }
     cout << "\n\t";
+}
+
+void Matrizes::elimGauss(){
+    cout << "Efetua a eliminacao de Gauss";
 }

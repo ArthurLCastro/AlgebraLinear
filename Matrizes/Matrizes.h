@@ -27,6 +27,7 @@ class Matrizes{
         float detLaplace();
         void imprime();
         void imprimeFormatada();
+        void elimGauss();
 };
 
 #endif
