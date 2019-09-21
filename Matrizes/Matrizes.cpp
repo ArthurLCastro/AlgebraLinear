@@ -4,6 +4,7 @@
 #include "Matrizes.h"
 
 // #define DEBUG
+ #define DEBUG_Pivo
 
 Matrizes::Matrizes(){
 }
@@ -177,5 +178,44 @@ void Matrizes::imprimeFormatada(){
 }
 
 void Matrizes::elimGauss(){
+    #ifdef DEBUG
     cout << "Efetua a eliminacao de Gauss";
+    #endif
+
+    unsigned int colunaPivo, valorPivo;
+
+    // Teste Pivo
+    unsigned int linha;
+    cout << "\nInsira a linha para buscar o pivo: ";
+    cin >> linha;
+    cout << "\n\nLinha Pivo: " << linha;
+    cout << "\n\nColuna Pivo: " << pivo(linha, "encontrarColuna");
+    cout << "\n\nValor Pivo: " << pivo(linha, "valor");
+
+    // colunaPivo = pivo(linha, "encontrarColuna");
+    // cout << "\nColuna do Pivo: " << colunaPivo;
+    // valorPivo = pivo(linha, "valor");
+    // cout << "\nValor do Pivo: " << valorPivo;
+}
+
+float Matrizes::pivo(unsigned int linhaPivo, string valor){    
+    unsigned int colunaPivo;
+
+    for(colunaPivo=1; colunaPivo<=numColunas; colunaPivo++){
+        if(mat[linhaPivo-1][colunaPivo-1] != 0){
+            break;
+        }
+        #ifdef DEBUG_Pivo
+        cout << "\n\n[DEBUG_Pivo] Linha zerada, nao possui Pivo";
+        #endif
+        return NULL;
+    }
+
+    if(valor == "encontrarColuna"){
+        return colunaPivo;
+    }
+
+    if(valor == "valor"){
+        return mat[linhaPivo-1][colunaPivo-1];
+    }
 }

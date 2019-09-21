@@ -5,6 +5,7 @@
 
 #include <iostream>
 using namespace std;
+#include <string.h>
 #include <math.h>
 
 class Matrizes{
@@ -28,6 +29,7 @@ class Matrizes{
         void imprime();
         void imprimeFormatada();
         void elimGauss();
+        float pivo(unsigned int, string);
 };
 
 #endif

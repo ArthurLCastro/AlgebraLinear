@@ -20,7 +20,7 @@ CPPFLAGS = -g -gdwarf-2 -Wall -std=c++14
 
 REMOVE = rm -f
 
-all: clean comp out
+all: clean comp out run
 
 run: 
 	@echo -------Running------
