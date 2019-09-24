@@ -4,8 +4,8 @@
 #include "Matrizes.h"
 
 // #define DEBUG
-// #define DEBUG_elimGauss
-// #define DEBUG_pivo
+#define DEBUG_elimGauss
+#define DEBUG_pivo
 
 Matrizes::Matrizes(){
 }
@@ -179,54 +179,40 @@ void Matrizes::imprimeFormatada(){
 }
 
 void Matrizes::elimGauss(){
-    Matrizes matEscalonamento(numLinhas, numColunas);
+    Matrizes matEsc(numLinhas, numColunas);
 
     // Copia a Matriz inserida para a Matriz usada no Escalonamento
     for (unsigned int line=1; line<=numLinhas; line++){
         for (unsigned int column=1; column<=numColunas; column++){
-            matEscalonamento.setMatriz(line-1, column-1, this->mat[line-1][column-1]);
+            matEsc.setMatriz(line-1, column-1, this->mat[line-1][column-1]);
         }
     }
     #ifdef DEBUG_elimGauss
     cout << "\n[DEBUG_elimGauss] Matriz Escalonamento:\n";
-    matEscalonamento.imprimeFormatada();
+    matEsc.imprimeFormatada();
     #endif
 
-    // // Zera os elementos da coluna abaixo de cada pivo:
-    // for(coluna){
-        // Zera os elementos da coluna abaixo do pivo:
-        for(unsigned int linha=1; linha<=numLinhas; linha++){
-            float valorDoPivo, colunaPivo;
-            valorDoPivo = matEscalonamento.pivo(linha, "valor");
-            colunaPivo = matEscalonamento.pivo(linha, "encontrarColuna");
-            #ifdef DEBUG_elimGauss
-            cout << "\n\t[DEBUG_elimGauss] Linha do Pivo: " << linha << "\n";
-            cout << "\n\t[DEBUG_elimGauss] Coluna do Pivo: " << colunaPivo << "\n";
-            cout << "\n\t[DEBUG_elimGauss] Valor do Pivo:" << valorDoPivo << "\n\n";
-            #endif
+    // Zera os elementos da coluna abaixo do pivo:
+    for(unsigned int linhaPivo=1; linhaPivo<=numLinhas; linhaPivo++){
+        float valorDoPivo;
+        unsigned int colunaPivo;
+        colunaPivo = matEsc.pivo(linhaPivo, "encontrarColuna");
+        valorDoPivo = matEsc.pivo(linhaPivo, "valor");
+        #ifdef DEBUG_elimGauss
+        cout << "\n\t[DEBUG_elimGauss] Linha do Pivo: " << linhaPivo << "\n";
+        cout << "\n\t[DEBUG_elimGauss] Coluna do Pivo: " << colunaPivo << "\n";
+        cout << "\n\t[DEBUG_elimGauss] Valor do Pivo: " << valorDoPivo << "\n\n";
+        #endif
 
-            if(valorDoPivo == 1){
-                #ifdef DEBUG_elimGauss
-                cout << "\n[DEBUG_elimGauss] Pivo igual a '1'\n";
-                #endif
-                // L2 <- -a(21)*L1 + L2
-                // L3 <- -a(31)*L1 + L3
-                // Ln <- -a(3n)*L1 + Ln
-                // L(linhaPivo+1) <- -a(linhaPivo+1 colunaPivo)*L(linhaPivo) + L(linhaPivo+1)
-            } else if(valorDoPivo == -1){
-                #ifdef DEBUG_elimGauss
-                cout << "\n[DEBUG_elimGauss] Pivo igual a '-1'\n";
-                #endif
-                // L2 <- a(21)*L1 + L2
-                // L3 <- a(31)*L1 + L3
-                // Ln <- a(3n)*L1 + Ln
-            } else {
-                #ifdef DEBUG_elimGauss
-                cout << "\n[DEBUG_elimGauss] Pivo diferente de '1' ou '-1'\n";
-                #endif
+        // L(linhaPivo+1) <- -a(linhaPivo+1 colunaPivo)*L(linhaPivo) + a(linhaPivo colunaPivo)*L(linhaPivo+1)
+        // for(unsigned int L=1; L<=numLinhas-; L++){
+            for(unsigned int coluna=1; coluna<=numColunas; coluna++){
+                mat[linhaPivo][coluna-1] =
+                    -(mat[linhaPivo][colunaPivo-1])*(mat[linhaPivo-1][coluna-1]) +
+                    (mat[linhaPivo-1][colunaPivo-1])*(mat[linhaPivo][coluna-1]);
             }
-        }
-    // }
+        // }
+    }
 
     // // TESTES PIVO
     // unsigned int colunaPivo, valorPivo, linha;
@@ -237,7 +223,7 @@ void Matrizes::elimGauss(){
     // valorPivo = pivo(linha, "valor");
     // cout << "\nValor do Pivo: " << valorPivo;
 
-    // matEscalonamento.imprimeFormatada();
+    // matEsc.imprimeFormatada();
 }
 
 float Matrizes::pivo(unsigned int linhaPivo, string valor){    // Estudar se há a possibilidade de uma chamada retornar dois valores
